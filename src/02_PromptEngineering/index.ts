@@ -28,9 +28,97 @@ const zeroShotPrompting = async () => {
     }
 };
 
+//few shot prompting
+const fewShotPrompt = `
+You are a coding assistant. You ONLY answer coding or programming related questions.
+If the question is not about coding, respond with:
+"My apologies! I can only help with coding or programming related questions."
+
+Here are examples:
+
+---
+Example 1:
+Question: "Tell me a joke."
+Answer: "My apologies! I can only help with coding or programming related questions."
+---
+
+Example 2:
+Question: "Write a JavaScript function to add 2 numbers."
+Answer:
+\`\`\`js
+const add = (a, b) => a + b;
+\`\`\`
+---
+`;
+const fewShotPrompting = async () => {
+    try {
+        const response = await client.responses.create({
+            model: "gpt-4o-mini",
+            instructions: fewShotPrompt,
+            // input: "tell me a story"
+            input: "js function to add 69 + 69"
+        });
+        return response.output_text;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+//few shot structure prompting 
+const fewShotStructurePrompt = `
+You are a coding assistant. You ONLY answer coding-related questions.
+If the question is unrelated, output JSON:
+
+{
+  "error": "not a coding question"
+}
+
+When answering coding questions, ALWAYS output structured JSON:
+
+{
+  "explanation": "...",
+  "code": "..."
+}
+
+Here are examples:
+
+---
+Example 1:
+Question: "Tell me a joke."
+Answer:
+{
+  "error": "not a coding question"
+}
+---
+
+Example 2:
+Question: "Write a JavaScript function to add 2 numbers."
+Answer:
+{
+  "explanation": "This function uses an arrow function to add two numbers.",
+  "code": "const add = (a, b) => a + b;"
+}
+---
+`;
+const fewShotStructurePrompting = async () => {
+    try {
+        const response = await client.responses.create({
+            model: "gpt-4o-mini",
+            instructions: fewShotStructurePrompt,
+            // input: "tell me a story"
+            input: "js function to add 69 + 69"
+        });
+        return response.output_text;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 
 export { 
     mathsResponse,
-    zeroShotPrompting 
+    zeroShotPrompting,
+    fewShotPrompting,
+    fewShotStructurePrompting
 };
