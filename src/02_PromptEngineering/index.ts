@@ -114,11 +114,33 @@ const fewShotStructurePrompting = async () => {
     }
 };
 
+//chainOfThoughtPrompting
+const chainOfThoughtPrompting = async () => {
 
+    const prompt = `
+    Solve the following problem using step-by-step reasoning.
+    Show your chain of thought briefly, then give ONLY the final answer at the end.
+    
+    Question:
+    If a train travels 120 km in 2 hours, what is its speed?
+    `;
 
-export { 
+    try {
+        const response = await client.responses.create({
+            model: "gpt-4o-mini",
+            input: prompt,
+        });
+    
+        return response.output_text;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export {
     mathsResponse,
     zeroShotPrompting,
     fewShotPrompting,
-    fewShotStructurePrompting
+    fewShotStructurePrompting,
+    chainOfThoughtPrompting
 };

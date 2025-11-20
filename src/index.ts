@@ -3,6 +3,7 @@ dotenv.config();
 
 import { openAiResponse } from "./01_ResponsesApi";
 import { 
+    chainOfThoughtPrompting,
     fewShotPrompting, 
     fewShotStructurePrompting, 
     mathsResponse, 
@@ -31,5 +32,10 @@ fewShotPrompting()
 
 //fewShotStructurePrompting
 fewShotStructurePrompting()
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+
+//chainOfThoughtPrompting
+chainOfThoughtPrompting()
     .then(res => console.log(res))
     .catch(err => console.log(err))
